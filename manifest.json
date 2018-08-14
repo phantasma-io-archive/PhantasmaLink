@@ -1,0 +1,33 @@
+{
+	"name": "Phantasma Link",
+	"version": "0.1",
+	"description": "Allows web applications to sign Phantasma transactions.",
+	"permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
+	"options_page": "options.html",
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"css": ["phantasma.css"],
+		"js": ["injector.js"]		
+	}],
+	"web_accessible_resources": ["phantasma.js"],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"page_action": {
+	"default_popup": "popup.html",
+	"default_icon": {
+	  "16": "images/phant16.png",
+	  "32": "images/phant32.png",
+	  "48": "images/phant48.png",
+	  "128": "images/phant128.png"
+	}
+	},
+	"icons": {
+	"16": "images/phant16.png",
+	"32": "images/phant32.png",
+	"48": "images/phant48.png",
+	"128": "images/phant128.png"
+	},
+	"manifest_version": 2
+}
