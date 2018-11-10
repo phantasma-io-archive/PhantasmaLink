@@ -1,10 +1,10 @@
-var s = document.createElement('script');
+/*var s = document.createElement('script');
 s.src = chrome.extension.getURL('phantasma.js');
 (document.head||document.documentElement).appendChild(s);
 s.onload = function() {
 	console.log("injected Phantasma Link");
     s.parentNode.removeChild(s);
-};
+};*/
 
 chrome.runtime.onMessage.addListener(function (msg, sender, callback) {
     // If the received message has the expected format...

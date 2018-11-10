@@ -9,7 +9,6 @@
 		"css": ["phantasma.css"],
 		"js": ["injector.js"]		
 	}],
-	"web_accessible_resources": ["phantasma.js"],
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": false
