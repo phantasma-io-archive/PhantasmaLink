@@ -4,6 +4,7 @@
 
 'use strict';
 
+/*
 let changeColor = document.getElementById('changeColor');
 
 chrome.storage.sync.get('color', function(data) {
@@ -19,3 +20,15 @@ changeColor.onclick = function(element) {
         {code: 'document.body.style.backgroundColor = "' + color + '";'});
   });
 };
+
+*/
+
+function closeLink(){
+	window.close();
+}
+
+function unlockLink(){
+	$("#login-view" ).fadeOut( "slow", function() {
+		$("#main-view" ).fadeIn();
+	});
+}

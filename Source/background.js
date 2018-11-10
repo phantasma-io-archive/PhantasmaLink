@@ -10,17 +10,25 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
+function enablePopup(tabID) {
+   chrome.pageAction.show(tabID);
+}
 
-chrome.tabs.onActivated.addListener(function(activeInfo) {
-  // how to fetch tab url using activeInfo.tabid
+chrome.tabs.onUpdated.addListener(function(activeInfo) {
+  //  tab url using activeInfo.tabid
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		let tab = tabs[0];
 		let tabURL = tab.url;
+
+		if (!tabURL) {
+			return;
+		}
 		
-        if (tabURL.includes("localhost") || tabURL.includes("file://"))
+		chrome.tabs.sendMessage(tab.id, {text: 'detect_phantasma_link'}, function() { enablePopup(tab.id);});
+			
+		//alert("url " +tabURL);
+         if (tabURL.includes("localhost") || tabURL.includes("file://"))
         {
-			//alert(tabURL);
-            chrome.pageAction.show(tab.id);
         }	
 	});
 }); 

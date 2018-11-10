@@ -50239,3 +50239,9 @@ function PhantasmaLink() {
 PhantasmaLink.prototype.version = function() {
     return this.majorVersion+"."+this.minorVersion;
 };
+
+PhantasmaLink.prototype.Login = function(callback) {
+	var key = Phantasma.Cryptography.KeyPair.Generate();	
+	callback(key, null);	
+ };
+ 
