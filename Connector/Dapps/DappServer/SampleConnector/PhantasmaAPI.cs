@@ -1011,11 +1011,11 @@ namespace Phantasma.SDK
 	
 	
    
-   public class API {	   
+   public class PhantasmaAPI {	   
 		public readonly	string Host;
 		private static JSONRPC_Client _client;
 	   
-		public API(string host) 
+		public PhantasmaAPI(string host) 
 		{
 			this.Host = host;
 			_client = new JSONRPC_Client();
