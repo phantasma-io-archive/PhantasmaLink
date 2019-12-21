@@ -1,0 +1,5 @@
+.vs/*
+*pubxml*
+PhantasmaLink/Publish/*
+PhantasmaLink/bin/*
+PhantasmaLink/obj/*
