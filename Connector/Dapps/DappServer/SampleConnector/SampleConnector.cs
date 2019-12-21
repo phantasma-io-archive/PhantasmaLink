@@ -2,6 +2,7 @@
 using LunarLabs.Parser;
 using Phantasma.API;
 using Phantasma.Cryptography;
+using Phantasma.Domain;
 using Phantasma.SDK;
 
 namespace Phantasma.Dapps
@@ -24,7 +25,7 @@ namespace Phantasma.Dapps
         {
             api.InvokeRawScript("main", script, (x) =>
             {
-                var root = Phantasma.API.APIUtils.FromAPIResult(new Invocation()
+                var root = APIUtils.FromAPIResult(new Invocation()
                 {
                     result = x.result // TODO support multiple results
                 });
@@ -32,7 +33,7 @@ namespace Phantasma.Dapps
 
             }, (error, log) =>
             {
-                var root = Phantasma.API.APIUtils.FromAPIResult(new Error() { message = log });
+                var root = APIUtils.FromAPIResult(new Error() { message = log });
                 callback(id, root, false);
             });
         }

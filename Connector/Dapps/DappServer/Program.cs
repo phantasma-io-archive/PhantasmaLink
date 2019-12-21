@@ -82,22 +82,14 @@ namespace Phantasma.Dapps
                 return HTTPResponse.FromString("Hello world!");
             });
 
-            server.Run();
-
-            // uncomment this line to enable sample connector, comment if you want to use Poltergeist or Phantom
-            //RunConnector();
-
-            bool running = true;
-
             Console.CancelKeyPress += delegate {
                 server.Stop();
-                running = false;
             };
 
-            while (running)
-            {
-                Thread.Sleep(500);
-            }
+            // uncomment this line to enable sample connector, comment if you want to use Poltergeist or Phantom
+            //new Thread(() => RunConnector()).Start();
+
+            server.Run();
         }
     }
 }
