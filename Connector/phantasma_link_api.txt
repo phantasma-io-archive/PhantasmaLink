@@ -1,0 +1,12 @@
+authorize(dapp)
+	bool
+getAccount()
+	id
+	address
+	name
+	avatar
+	balances
+sendTransaction(action)
+invokeScript(script)	
+
+

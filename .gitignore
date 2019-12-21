@@ -3,3 +3,8 @@
 PhantasmaLink/Publish/*
 PhantasmaLink/bin/*
 PhantasmaLink/obj/*
+Connector/.vs/
+
+Connector/PhantasmaLink/bin/
+
+Connector/PhantasmaLink/obj/
