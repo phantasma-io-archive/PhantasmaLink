@@ -15,7 +15,7 @@ namespace Phantasma.Dapps
         static void RunConnector()
         {
             var settings = ServerSettings.DefaultSettings();
-            settings.Port = 7707;
+            settings.Port = 7080;
 
             var server = new HTTPServer(settings, ConsoleLogger.Write);
 
@@ -40,7 +40,7 @@ namespace Phantasma.Dapps
             var api = new PhantasmaAPI("http://localhost:7078");
             var link = new SampleConnector(api);
 
-            server.WebSocket("/", (socket) =>
+            server.WebSocket("/phantasma", (socket) =>
             {
                 while (socket.IsOpen)
                 {
