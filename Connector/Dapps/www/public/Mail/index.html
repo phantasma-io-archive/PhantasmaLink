@@ -3,11 +3,13 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-<script src="phantasma.js"></script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 <link rel = "stylesheet" type = "text/css" href = "style.css" />
-<link rel = "stylesheet" type = "text/css" href = "phantasma.css" />
+
+<script src="../Shared/phantasma.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "../Shared/phantasma.css" />
+
 </head>
 
 <body>
@@ -414,37 +416,8 @@
 				  </div>
 	</div>
 
-<div id="fakeLoader"></div>
-<!-- Modal -->
-<div id="phantasmaError" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Phantasma Link Error</h4>
-      </div>
-      <div class="modal-body">
-        <p>We were unable to connect to a Phantasma wallet. If you have a compatible wallet installed, make sure it is open in the background.</p>
-		<p>Otherwise, please install one of the following:
-		<ul>
-		<li><a href="https://github.com/Relfos/Poltergeist/releases">Poltergeist</a></li>
-		<li><a href="https://github.com/merl111/PhantomWallet/releases">Phantom</a></li>
-		</ul></p>
-		<p>Once installed, open it then press the Retry button.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" onclick="link.retry();">Retry</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script type="text/javascript">
-
-let link = new PhantasmaLink("lol");
-
+let link = new PhantasmaLink("Mail");
 </script>
+
 </body>
