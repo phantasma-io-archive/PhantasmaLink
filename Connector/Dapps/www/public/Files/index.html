@@ -19,13 +19,13 @@
 				<div class="module-inner">
 					<div class="side-bar">
 						<div class="user-info">
-							<img class="img-profile img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+							<img id="account_avatar" class="img-profile img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
 							<ul class="meta list list-unstyled">
-								<li class="name">Rebecca Sanders
+								<li id="account_name" class="name">Rebecca Sanders
 									<label class="label label-info">UX Designer</label>
 								</li>
-								<li class="email"><a href="#">Rebecca.S@website.com</a></li>
-								<li class="activity">Last logged in: Today at 2:18pm</li>
+								<li id="account_address" class="email"><a href="#">Rebecca.S@website.com</a></li>
+								<li id="account_connection" class="activity">Last logged in: Today at 2:18pm</li>
 							</ul>
 						</div>
 						<nav class="side-menu">
@@ -43,7 +43,7 @@
 
 					<div class="content-panel">
 						<div class="content-header-wrapper">
-							<h2 class="title">My Drive</h2>
+							<h2 class="title">My Phantasma Drive</h2>
 							<div class="actions">
 								<button class="btn btn-success"><i class="fa fa-plus"></i> Upload New Item</button>
 							</div>
@@ -100,9 +100,9 @@
 								</div>
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
-										<div class="drive-item-title"><a href="#">Stock Image DC3214.JPG</a></div>
+										<div class="drive-item-title"><a href="#">Phantasma.JPG</a></div>
 										<div class="drive-item-thumb">
-											<a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""></a>
+											<a href="#"><img class="img-responsive" src="https://phantasma.io/img/slide-img-3.jpg" alt=""></a>
 										</div>
 									</div>
 									<div class="drive-item-footer module-footer">
@@ -114,7 +114,7 @@
 								</div>
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
-										<div class="drive-item-title"><a href="#">Deck Lorem Ipsum.ppt</a></div>
+										<div class="drive-item-title"><a href="#">dapps.ppt</a></div>
 										<div class="drive-item-thumb">
 											<a href="#"><i class="fa fa-file-powerpoint-o text-warning"></i></a>
 										</div>
@@ -158,7 +158,7 @@
 									<div class="drive-item-inner module-inner">
 										<div class="drive-item-title"><a href="#">Image DS1341.JPG</a></div>
 										<div class="drive-item-thumb">
-											<a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
+											<a href="#"><img class="img-responsive" src="https://phantasma.io/img/slide-img-1.jpg" alt=""></a>
 										</div>
 									</div>
 									<div class="drive-item-footer module-footer">
@@ -172,7 +172,7 @@
 									<div class="drive-item-inner module-inner">
 										<div class="drive-item-title"><a href="#">Image DS3214.JPG</a></div>
 										<div class="drive-item-thumb">
-											<a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></a>
+											<a href="#"><img class="img-responsive" src="https://phantasma.io/img/slide-img-6.jpg" alt=""></a>
 										</div>
 									</div>
 									<div class="drive-item-footer module-footer">
@@ -227,7 +227,7 @@
 
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
-										<div class="drive-item-title"><a href="#">Quisque.doc</a></div>
+										<div class="drive-item-title"><a href="#">Partnerships.doc</a></div>
 										<div class="drive-item-thumb">
 											<a href="#"><i class="fa fa-file-word-o text-info"></i></a>
 										</div>
@@ -241,7 +241,7 @@
 								</div>
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
-										<div class="drive-item-title"><a href="#">Aenean imperdiet.doc</a></div>
+										<div class="drive-item-title"><a href="#">Exchanges.doc</a></div>
 										<div class="drive-item-thumb">
 											<a href="#"><i class="fa fa-file-word-o text-info"></i></a>
 										</div>
@@ -269,9 +269,9 @@
 								</div>
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
-										<div class="drive-item-title"><a href="#">Image DS2314.JPG</a></div>
+										<div class="drive-item-title"><a href="#">nacho.JPG</a></div>
 										<div class="drive-item-thumb">
-											<a href="#"><img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""></a>
+											<a href="#"><img class="img-responsive" src="https://phantasma.io/img/nacho-front.png" alt=""></a>
 										</div>
 									</div>
 									<div class="drive-item-footer module-footer">
@@ -310,7 +310,7 @@
 										</tr>
 										<tr>
 											<td class="type"><i class="fa fa-file-powerpoint-o text-warning"></i></td>
-											<td class="name truncate"><a href="#">Deck Lorem Ipsum.ppt</a></td>
+											<td class="name truncate"><a href="#">dapps.ppt</a></td>
 											<td class="date">Sep 20, 2015</td>
 											<td class="size">136 MB</td>
 										</tr>
@@ -390,6 +390,14 @@ $(function(){
 })
 
 let link = new PhantasmaLink("Files");
-
+link.login( function(success) {
+	if (success) {
+		$("#account_avatar").attr("src", link.account.avatar);
+		$('#account_name').text(link.account.name);						
+		$('#account_address').text(link.account.address.trunc(12));						
+		$('#account_connection').html('<i class="fas fa-bullseye"></i> ' + link.wallet);
+	}
+});
 </script>
+
 </body>

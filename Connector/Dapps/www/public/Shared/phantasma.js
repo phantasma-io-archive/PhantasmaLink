@@ -42,10 +42,16 @@ class PhantasmaLink {
 		this.dapp = dappID;
 
 		$('body').append(phantasmaInsertHTML);
-	
-		this.createSocket();
+			
+		this.onLogin = function(succ) {
+				// do nothing
+		};
 	}
 	
+	login(callback) {
+		this.onLogin = callback;
+		this.createSocket();
+	}
 
 	createSocket() {
 		let path = "ws://"+ this.host +"/phantasma";
@@ -73,20 +79,18 @@ class PhantasmaLink {
 						if (result.success) {
 								that.account = result;
 								that.setLinkMsg('Ready, opening dapp...');
-								that.hideModal();
-														
-								$("#account_avatar").attr("src", that.account.avatar);
-								$('#account_name').text(that.account.name);						
-								$('#account_address').text(that.account.address.trunc(20));						
-								$('#account_connection').html('<i class="fas fa-bullseye"></i> ' + that.wallet);
+								that.hideModal();							
 						}
 						else {
 							that.setLinkMsg('Could not obtain account info...<br>Make sure you have an account currently open in '+that.wallet);
 						}
+						
+						that.onLogin(result.success);						
 					});
 				}
 				else {
 					that.setLinkMsg('Authorization failed...');
+					that.onLogin(false);
 				}			
 			});
 		};

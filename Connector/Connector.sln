@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DappServer", "Dapps\DappSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phantasma.Domain", "..\..\PhantasmaChain\Phantasma.Domain\Phantasma.Domain.csproj", "{C0761FDE-D29D-45FF-BF6E-BE66FB147921}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LunarServer", "..\..\LunarServer\LunarServer\LunarServer.csproj", "{A36E2601-0282-4856-A5BB-ADB9A85073E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C0761FDE-D29D-45FF-BF6E-BE66FB147921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0761FDE-D29D-45FF-BF6E-BE66FB147921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0761FDE-D29D-45FF-BF6E-BE66FB147921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36E2601-0282-4856-A5BB-ADB9A85073E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36E2601-0282-4856-A5BB-ADB9A85073E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36E2601-0282-4856-A5BB-ADB9A85073E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36E2601-0282-4856-A5BB-ADB9A85073E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
