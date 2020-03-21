@@ -8,6 +8,7 @@
 <link rel = "stylesheet" type = "text/css" href = "style.css" />
 
 <script src="../Shared/phantasma.js"></script>
+<script src="../Shared/validator.min.js"></script>
 <link rel = "stylesheet" type = "text/css" href = "../Shared/phantasma.css" />
 
  <meta charset="UTF-8">
@@ -42,23 +43,28 @@
 											  <h4 class="modal-title">Compose</h4>
 										  </div>
 										  <div class="modal-body">
-											  <form role="form" class="form-horizontal">
+											  <form role="form" class="form-horizontal" id="send_form">
+											  
 												  <div class="form-group">
 													  <label class="col-lg-2 control-label">To</label>
 													  <div class="col-lg-10">
-														  <input type="text" placeholder="" id="inputEmail1" class="form-control">
+														  <input type="email" placeholder="" id="email_to" class="form-control" required>
+															<div class="help-block with-errors"></div>
 													  </div>
 												  </div>
+												  				
 												  <div class="form-group">
 													  <label class="col-lg-2 control-label">Subject</label>
 													  <div class="col-lg-10">
-														  <input type="text" placeholder="" id="inputPassword1" class="form-control">
+														  <input type="text" placeholder="" id="email_subject" class="form-control"  data-minlength="3" required>
+															<div class="help-block with-errors"></div>
 													  </div>
 												  </div>
 												  <div class="form-group">
 													  <label class="col-lg-2 control-label">Message</label>
 													  <div class="col-lg-10">
-														  <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea>
+														  <textarea rows="10" cols="30" class="form-control" id="email_msg" name="" data-minlength="5" required></textarea>
+															<div class="help-block with-errors"></div>
 													  </div>
 												  </div>
 
@@ -69,7 +75,7 @@
 															<span>Attachment</span>
 															<input id="attach_button" class="disabled" type="file" name="files[]" multiple="">
 														  </span>-->
-														  <button class="btn btn-send" type="button" onclick="alert('lol')">Send</button>
+														  <button class="btn btn-send" type="button" onclick="sendMail('#send_form')">Send</button>
 													  </div>
 												  </div>
 											  </form>
@@ -422,6 +428,25 @@ link.login( function(success) {
 		$('#account_connection').html('<i class="fas fa-bullseye"></i> ' + link.wallet);
 	}
 });
+
+function sendMail(attr_id) {	
+	$(attr_id).validator('validate');
+	
+	let result = true;
+	$(attr_id+' .form-group').each(function(){
+		if($(this).hasClass('has-error')){
+			result = false;
+			return;
+		}
+	});
+	
+	if (!result) {
+		return;
+	}
+	
+	alert('succes');
+}
+
 </script>
 
 </body>
