@@ -10,7 +10,7 @@ using Phantasma.SDK;
 
 namespace Phantasma.Dapps
 {
-    class Program
+    class ConnectorServer
     {
         static void RunConnector()
         {

@@ -3,16 +3,14 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+	<link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
 	<link rel = "stylesheet" type = "text/css" href = "style.css" />
 
 	<script src="../Shared/phantasma.js"></script>
-	<link rel = "stylesheet" type = "text/css" href = "../Shared/phantasma.css" />
-	
+	<link rel = "stylesheet" type = "text/css" href = "../Shared/phantasma.css" />	
 </head>
 
 <body>
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<div class="container">
 		<div class="view-account">
 			<section class="module">
@@ -74,15 +72,15 @@
 									</ul>
 								</div>
 								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh"><i class="fa fa-refresh"></i></button>
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh"><i class="fa fa-sync"></i></button>
 									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Archive"><i class="fa fa-archive"></i></button>
 
 									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Report spam"><i class="fa fa-exclamation-triangle"></i></button>
-									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
 								</div>
 							</div>
 						</div>
-						<div class="drive-wrapper drive-grid-view">
+						<!--<div class="drive-wrapper drive-grid-view">
 							<div class="grid-items-wrapper">
 								<div class="drive-item module text-center">
 									<div class="drive-item-inner module-inner">
@@ -282,7 +280,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="drive-wrapper drive-list-view">
 							<div class="table-responsive drive-items-table-wrapper">
@@ -295,84 +293,12 @@
 											<th class="size">Size</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="file_list">
 										<tr>
 											<td class="type"><i class="fa fa-file-text-o text-primary"></i></td>
 											<td class="name truncate"><a href="#">Meeting Notes.txt</a></td>
 											<td class="date">Sep 23, 2015</td>
 											<td class="size">18 KB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-image-o text-primary"></i></td>
-											<td class="name truncate"><a href="#">Stock Image DC3214.JPG</a></td>
-											<td class="date">Sep 21, 2015</td>
-											<td class="size">235 MB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-powerpoint-o text-warning"></i></td>
-											<td class="name truncate"><a href="#">dapps.ppt</a></td>
-											<td class="date">Sep 20, 2015</td>
-											<td class="size">136 MB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-excel-o text-success"></i></td>
-											<td class="name truncate"><a href="#">Project Tasks.csv</a></td>
-											<td class="date">Aug 16, 2015</td>
-											<td class="size">32 KB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-pdf-o text-warning"></i></td>
-											<td class="name truncate"><a href="#">Project Brief.pdf</a></td>
-											<td class="date">Aug 15, 2015</td>
-											<td class="size">73 MB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-image-o text-primary"></i></td>
-											<td class="name truncate"><a href="#">Image DS1341.JPG</a></td>
-											<td class="date">Aug 15, 2015</td>
-											<td class="size">171 MB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-image-o text-primary"></i></td>
-											<td class="name truncate"><a href="#">Image DS3214.JPG</a></td>
-											<td class="date">Aug 15, 2015</td>
-											<td class="size">171 MB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-folder text-primary"></i></td>
-											<td class="name truncate"><a href="#">UX Resource</a></td>
-											<td class="date">Feb 07, 2015</td>
-											<td class="size">--</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-folder text-primary"></i></td>
-											<td class="name truncate"><a href="#">Prototypes</a></td>
-											<td class="date">Jan 03, 2015</td>
-											<td class="size">--</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-											<td class="name truncate"><a href="#">Quisque.doc</a></td>
-											<td class="date">Oct 21, 2014</td>
-											<td class="size">27 KB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-											<td class="name truncate"><a href="#">Aenean imperdiet.doc</a></td>
-											<td class="date">Oct 16, 2014</td>
-											<td class="size">23 KB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-code-o text-primary"></i></td>
-											<td class="name truncate"><a href="#">demo.html</a></td>
-											<td class="date">Aug 23, 2014</td>
-											<td class="size">10 KB</td>
-										</tr>
-										<tr>
-											<td class="type"><i class="fa fa-file-image-o text-success"></i></td>
-											<td class="name truncate"><a href="#">Image DS2314.JPG</a></td>
-											<td class="date">Aug 06, 2014</td>
-											<td class="size">325 MB</td>
 										</tr>
 									</tbody>
 								</table>
@@ -389,6 +315,8 @@ $(function(){
     $("[data-toggle='tooltip']").tooltip();
 })
 
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 let link = new PhantasmaLink("Files");
 link.login( function(success) {
 	if (success) {
@@ -396,8 +324,39 @@ link.login( function(success) {
 		$('#account_name').text(link.account.name);						
 		$('#account_address').text(link.account.address.trunc(12));						
 		$('#account_connection').html('<i class="fas fa-bullseye"></i> ' + link.wallet);
+		
+		$('#file_list').empty();
+						
+		
+		let files = link.account.files;
+		if (files) {
+			for (let i=0; i<files.length; i++) {
+				let file = files[i];
+				let size = humanFileSize(file.size, true);
+				
+				let d = new Date(file.date * 1000);				
+				let date  = months[d.getMonth()] + ' '+d.getDate()+ ', '+d.getFullYear();
+				$('#file_list').append('<tr><td class="type"><i class="fa fa-file-text-o text-primary"></i></td><td class="name truncate"><a href="#"><i class="fas fa-download"></i></a>&nbsp;&nbsp;'+file.name+'</td><td class="date">'+date+'</td><td class="size">'+size+'</td></tr>');
+			}
+		}
 	}
 });
+
+function humanFileSize(bytes, si) {
+    var thresh = si ? 1000 : 1024;
+    if(Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+    var units = si
+        ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+        : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+    var u = -1;
+    do {
+        bytes /= thresh;
+        ++u;
+    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
+}
 </script>
 
 </body>

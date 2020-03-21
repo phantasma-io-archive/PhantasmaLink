@@ -1,7 +1,9 @@
 ﻿using System;
 using LunarLabs.Parser;
+using Phantasma.Core.Types;
 using Phantasma.Cryptography;
 using Phantasma.Domain;
+using Phantasma.Numerics;
 using Phantasma.SDK;
 
 namespace Phantasma.Dapps
@@ -32,13 +34,18 @@ namespace Phantasma.Dapps
                 balances = new Balance[]
                     {
                     new Balance() { symbol = "SOUL", value = "100000000", decimals = 8}
-                    }
+                    },
+                files = new File[]
+                {
+                    new File(){ name = "hello.txt", hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", size = 1024 , date = 1584404874 },
+                    new File(){ name = "second.txt", hash = "c8996fb92427ae41e4649b934ca495991b7852b855e3b0c44298fc1c149afbf4", size = 204888, date = 1584804874 },
+                },
             };
         }
     
-        protected override void InvokeScript(string script, int id, Action<int, DataNode, bool> callback)
+        protected override void InvokeScript(byte[] script, int id, Action<int, DataNode, bool> callback)
         {
-            api.InvokeRawScript("main", script, (x) =>
+            api.InvokeRawScript("main", Base16.Encode(script), (x) =>
             {
                 var root = APIUtils.FromAPIResult(new Invocation()
                 {
@@ -51,6 +58,17 @@ namespace Phantasma.Dapps
                 var root = APIUtils.FromAPIResult(new Error() { message = log });
                 callback(id, root, false);
             });
+        }
+
+        protected override byte[] SignTransaction(string nexus, string chain, byte[] script, int id, Action<int, DataNode, bool> callback)
+        {
+            var expiration = (Timestamp)(DateTime.UtcNow + TimeSpan.FromMinutes(20));
+            var payload = System.Text.Encoding.ASCII.GetBytes("SampleConnector1.0"); 
+            var tx = new Phantasma.Blockchain.Transaction(nexus, chain, script, expiration, payload);
+            tx.Sign(this.keys);
+
+            var bytes = tx.ToByteArray(true);
+            return bytes;
         }
     }
 }
