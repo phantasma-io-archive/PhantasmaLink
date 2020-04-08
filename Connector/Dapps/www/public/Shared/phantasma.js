@@ -322,7 +322,7 @@ console.log(script);
 //https://javascript.info/websocket
 class PhantasmaLink {
 	constructor(dappID) {
-		this.host = "localhost:7080";
+		this.host = "localhost:7090";
 		this.dapp = dappID;
 
 		$('body').append(phantasmaInsertHTML);
