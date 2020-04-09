@@ -444,7 +444,19 @@ function sendMail(attr_id) {
 		return;
 	}
 	
-	alert('succes');
+	let sb = new ScriptBuilder();	
+	let script = sb.callContract("stake", "testMethod", ["hello", "world", true]).endScript();
+
+	link.sendTransaction('simnet', 'main', script, function(result){
+			
+				if (result.success) {
+					alert('succes');
+				}
+				else {
+					alert('failed');
+				}			
+			});
+			
 }
 
 </script>

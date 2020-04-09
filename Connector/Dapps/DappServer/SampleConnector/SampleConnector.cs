@@ -43,31 +43,31 @@ namespace Phantasma.Dapps
             };
         }
     
-        protected override void InvokeScript(byte[] script, int id, Action<int, DataNode, bool> callback)
+        protected override void InvokeScript(byte[] script, int id, Action<byte[], string> callback)
         {
             api.InvokeRawScript("main", Base16.Encode(script), (x) =>
             {
-                var root = APIUtils.FromAPIResult(new Invocation()
-                {
-                    result = x.result // TODO support multiple results
-                });
-                callback(id, root, true);
+                callback(Base16.Decode(x.result), null);
 
             }, (error, log) =>
             {
-                var root = APIUtils.FromAPIResult(new Error() { message = log });
-                callback(id, root, false);
+                callback(null, log);
             });
         }
 
-        protected override Hash SignTransaction(string nexus, string chain, byte[] script, int id, Action<int, DataNode, bool> callback)
+        protected override void SignTransaction(string nexus, string chain, byte[] script, int id, Action<Hash, string> callback)
         {
             var expiration = (Timestamp)(DateTime.UtcNow + TimeSpan.FromMinutes(20));
             var payload = System.Text.Encoding.ASCII.GetBytes("SampleConnector1.0"); 
             var tx = new Phantasma.Blockchain.Transaction(nexus, chain, script, expiration, payload);
             tx.Sign(this.keys);
 
-            return tx.Hash;
+            callback(tx.Hash, null);
+        }
+
+        protected override void Authorize(string dapp, Action<bool, string> callback)
+        {
+            callback(true, null); // this accepts everything, in a real connect the user should be prompted!
         }
     }
 }

@@ -133,7 +133,7 @@ class ScriptBuilder {
 	
 	appendBytes(values) {
 		for (let i=0; i<values.length; i++) {
-			this.script = this.script + this.raw(values[i]);
+			this.appendByte(values[i]);
 		}
 	}
 
@@ -414,6 +414,18 @@ class PhantasmaLink {
 
 	get dappID() {
 		return this.dapp;
+	}
+	
+	sendTransaction(nexus, chain, script, callback) {
+		
+		this.showModal();
+		this.setLinkMsg('Relaying transaction to wallet...');
+		
+		let that = this;
+		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script, function(result){
+				that.hideModal();
+				callback(result);
+			});		
 	}
 	
 	sendLinkRequest(request, callback) {

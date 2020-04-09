@@ -7,6 +7,7 @@ using LunarLabs.Parser;
 using LunarLabs.Parser.JSON;
 using LunarLabs.WebSockets;
 using Phantasma.SDK;
+using Phantasma.Domain;
 
 namespace Phantasma.Dapps
 {
@@ -15,7 +16,7 @@ namespace Phantasma.Dapps
         static void RunConnector()
         {
             var settings = ServerSettings.DefaultSettings();
-            settings.Port = 7080;
+            settings.Port = WalletLink.WebSocketPort;
 
             var server = new HTTPServer(settings, ConsoleLogger.Write);
 
@@ -87,7 +88,7 @@ namespace Phantasma.Dapps
             };
 
             // uncomment this line to enable sample connector, comment if you want to use Poltergeist or Phantom
-           // new Thread(() => RunConnector()).Start();
+            //new Thread(() => RunConnector()).Start();
 
             server.Run();
         }
