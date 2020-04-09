@@ -87,7 +87,7 @@ namespace Phantasma.Dapps
             };
 
             // uncomment this line to enable sample connector, comment if you want to use Poltergeist or Phantom
-            new Thread(() => RunConnector()).Start();
+           // new Thread(() => RunConnector()).Start();
 
             server.Run();
         }
