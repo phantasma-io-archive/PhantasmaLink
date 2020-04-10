@@ -243,12 +243,12 @@ class ScriptBuilder {
 			this.emitLoadEx(reg, bytes, this.VMType_Bool());
 		}
 		else 
-		/*if (typeof obj === 'number')
+		if (typeof obj === 'number')
 		{
-			let bytes = this.rawNumber(obj); // TODO
-			this.emitLoadEx(reg, bytes, VMType_Number());
+			let bytes = this.rawString(obj.toString());
+			this.emitLoadEx(reg, bytes, VMType_String());
 		}
-		else */
+		else 
 		{
 			throw "unsupported or uniplemented type";
 		}
