@@ -311,6 +311,10 @@ class ScriptBuilder {
 		this.emitOpcode(this.Opcode_RET());
 		return this.script;
 	}
+	
+	nullAddress() {
+		return 'S1111111111111111111111111111111111';
+	}
 }
 
 /*let sb = new ScriptBuilder();
