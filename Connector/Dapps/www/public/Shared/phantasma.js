@@ -231,6 +231,20 @@ class ScriptBuilder {
 			let bytes = this.rawString(obj);
 			this.emitLoadEx(reg, bytes, this.VMType_String());
 		}
+		else 
+		if (obj instanceof Date)
+		{
+			// https://stackoverflow.com/questions/9756120/how-do-i-get-a-utc-timestamp-in-javascript
+			let utc_seconds = (obj.getTime() + obj.getTimezoneOffset()*60*1000)/1000;
+			
+			let a = (num & 0xff000000) >> 24;
+			let b = (num & 0x00ff0000) >> 16;
+			let c = (num & 0x0000ff00) >> 8;
+			let d = (num & 0x000000ff);
+		 
+			let bytes = [a, b, c, d]; // TODO validate this, maybe the order should be inverted?
+			this.emitLoadEx(reg, bytes, this.VMType_Timestamp());
+		}
 		else
 		if (typeof obj === 'boolean')
 		{
