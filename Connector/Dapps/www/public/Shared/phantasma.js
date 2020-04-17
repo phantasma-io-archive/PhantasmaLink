@@ -231,18 +231,18 @@ class ScriptBuilder {
 			let bytes = this.rawString(obj);
 			this.emitLoadEx(reg, bytes, this.VMType_String());
 		}
-		else 
+		else
 		if (obj instanceof Date)
 		{
 			// https://stackoverflow.com/questions/9756120/how-do-i-get-a-utc-timestamp-in-javascript
 			let utc_seconds = (obj.getTime() + obj.getTimezoneOffset()*60*1000)/1000;
-			
+
 			let a = (num & 0xff000000) >> 24;
 			let b = (num & 0x00ff0000) >> 16;
 			let c = (num & 0x0000ff00) >> 8;
 			let d = (num & 0x000000ff);
-		 
-			let bytes = [a, b, c, d]; // TODO validate this, maybe the order should be inverted?
+
+			let bytes = [d, c, b, a];
 			this.emitLoadEx(reg, bytes, this.VMType_Timestamp());
 		}
 		else
@@ -306,7 +306,7 @@ class ScriptBuilder {
 		this.appendMethodArgs(args);
 
 		// NOTE this optimization assumes that reg 2 contains a valid method name due to this method being called multiple times
-		if (this.lastMethod != method) 
+		if (this.lastMethod != method)
 		{
 			this.lastMethod = method;
 			let temp_reg = 2;
@@ -318,7 +318,7 @@ class ScriptBuilder {
 		let dest_reg = 1;
 
 		// NOTE this optimization assumes that reg 1 contains a valid context for this contract due to this method being called multiple times
-		if (this.lastContract != contract) 
+		if (this.lastContract != contract)
 		{
 			this.lastContract = contract;
 			this.emitLoad(src_reg, contractName);
@@ -337,7 +337,7 @@ class ScriptBuilder {
 		this.emitOpcode(this.Opcode_RET());
 		return this.script;
 	}
-	
+
 	clearOptimizations() {
 		this.lastContract = "";
 		this.lastMethod = "";
@@ -456,7 +456,7 @@ class PhantasmaLink {
 			alert("script too big, sorry :(");
 			return; // TODO callback with error
 		}
-		
+
 		this.showModal();
 		this.setLinkMsg('Relaying transaction to wallet...');
 
