@@ -107,6 +107,7 @@ class ScriptBuilder {
 
 	constructor() {
 		this.script = "";
+		this.clearOptimizations();
 	}
 
 	// just quick dirty method to convert number to hex wih 2 digits, rewrite this later if there's a cleaner way
@@ -291,15 +292,21 @@ class ScriptBuilder {
 		this.appendMethodArgs(args);
 
 		let temp_reg = 0;
+		let src_reg = 0;
+		let dest_reg = 1;
+
 		this.emitLoad(temp_reg, method);
 		this.emitPush(temp_reg);
 
-		let src_reg = 0;
-		let dest_reg = 1;
-		this.emitLoad(src_reg, contractName);
-		this.emitOpcode(this.Opcode_CTX());
-		this.appendByte(src_reg);
-		this.appendByte(dest_reg);
+		// NOTE this optimization assumes that reg 1 contains a valid context for this contract due to this method being called multiple times
+		if (this.lastContract != contract) 
+		{
+			this.lastContract = contract;
+			this.emitLoad(src_reg, contractName);
+			this.emitOpcode(this.Opcode_CTX());
+			this.appendByte(src_reg);
+			this.appendByte(dest_reg);
+		}
 
 		this.emitOpcode(this.Opcode_SWITCH());
 		this.appendByte(dest_reg);
@@ -310,6 +317,10 @@ class ScriptBuilder {
 	endScript() {
 		this.emitOpcode(this.Opcode_RET());
 		return this.script;
+	}
+	
+	clearOptimizations() {
+		this.lastContract = "";
 	}
 
 	nullAddress() {
