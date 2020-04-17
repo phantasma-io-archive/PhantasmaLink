@@ -291,12 +291,17 @@ class ScriptBuilder {
 	callContract(contractName, method, args) {
 		this.appendMethodArgs(args);
 
-		let temp_reg = 0;
+		// NOTE this optimization assumes that reg 2 contains a valid method name due to this method being called multiple times
+		if (this.lastMethod != method) 
+		{
+			this.lastMethod = method;
+			let temp_reg = 2;
+			this.emitLoad(temp_reg, method);
+			this.emitPush(temp_reg);
+		}
+
 		let src_reg = 0;
 		let dest_reg = 1;
-
-		this.emitLoad(temp_reg, method);
-		this.emitPush(temp_reg);
 
 		// NOTE this optimization assumes that reg 1 contains a valid context for this contract due to this method being called multiple times
 		if (this.lastContract != contract) 
@@ -321,6 +326,7 @@ class ScriptBuilder {
 	
 	clearOptimizations() {
 		this.lastContract = "";
+		this.lastMethod = "";
 	}
 
 	nullAddress() {
