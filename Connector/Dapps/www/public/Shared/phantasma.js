@@ -421,6 +421,10 @@ class PhantasmaLink {
 	}
 	
 	sendTransaction(nexus, chain, script, callback) {
+		if (script.length >= 8192) {
+			alert("script too big, sorry :(");
+			return; // TODO callback with error
+		}
 		
 		this.showModal();
 		this.setLinkMsg('Relaying transaction to wallet...');
