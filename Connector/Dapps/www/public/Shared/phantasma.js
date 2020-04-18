@@ -215,15 +215,6 @@ class ScriptBuilder {
 		return this;
 	}
 
-	// method is a string
-	emitExtCall(method, reg)
-	{
-		this.emitLoad(reg, method);
-		this.emitOpcode(this.Opcode_EXTCALL());
-		this.appendByte(reg);
-		return this;
-	}
-
 	emitLoad(reg, obj)
 	{
 		if (typeof obj === 'string')
@@ -290,29 +281,32 @@ class ScriptBuilder {
 		this.appendBytes(bytes);
 		return this;
 	}
-
-	callInterop(method, args) {
+	
+	emitMethod(method, args) {
 		this.appendMethodArgs(args);
 
-		let dest_reg = 0;
-		this.emitLoad(dest_reg, method);
-		this.emitOpcode(this.Opcode_EXTCALL());
-		this.appendByte(dest_reg);
+		let temp_reg = 2;
+		
+		// NOTE this optimization assumes that reg 2 contains a valid method name due to this method being called multiple times
+		if (this.lastMethod != method)
+		{
+			this.lastMethod = method;			
+			this.emitLoad(temp_reg, method);
+		}
+		
+		return temp_reg;
+	}
 
+	callInterop(method, args) {
+		let temp_reg = this.emitMethod(method, args);
+		this.emitOpcode(this.Opcode_EXTCALL());
+		this.appendByte(temp_reg);
 		return this;
 	}
 
 	callContract(contractName, method, args) {
-		this.appendMethodArgs(args);
-
-		// NOTE this optimization assumes that reg 2 contains a valid method name due to this method being called multiple times
-		if (this.lastMethod != method)
-		{
-			this.lastMethod = method;
-			let temp_reg = 2;
-			this.emitLoad(temp_reg, method);
-			this.emitPush(temp_reg);
-		}
+		let temp_reg = this.emitMethod(method, args);
+		this.emitPush(temp_reg);
 
 		let src_reg = 0;
 		let dest_reg = 1;
