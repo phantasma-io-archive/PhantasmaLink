@@ -226,7 +226,7 @@ class ScriptBuilder {
 		if (obj instanceof Date)
 		{
 			// https://stackoverflow.com/questions/9756120/how-do-i-get-a-utc-timestamp-in-javascript
-			let utc_seconds = (obj.getTime() + obj.getTimezoneOffset()*60*1000)/1000;
+			let num = (obj.getTime() + obj.getTimezoneOffset()*60*1000)/1000;
 
 			let a = (num & 0xff000000) >> 24;
 			let b = (num & 0x00ff0000) >> 16;
@@ -281,19 +281,19 @@ class ScriptBuilder {
 		this.appendBytes(bytes);
 		return this;
 	}
-	
+
 	emitMethod(method, args) {
 		this.appendMethodArgs(args);
 
 		let temp_reg = 2;
-		
+
 		// NOTE this optimization assumes that reg 2 contains a valid method name due to this method being called multiple times
 		if (this.lastMethod != method)
 		{
-			this.lastMethod = method;			
+			this.lastMethod = method;
 			this.emitLoad(temp_reg, method);
 		}
-		
+
 		return temp_reg;
 	}
 
@@ -312,9 +312,9 @@ class ScriptBuilder {
 		let dest_reg = 1;
 
 		// NOTE this optimization assumes that reg 1 contains a valid context for this contract due to this method being called multiple times
-		if (this.lastContract != contract)
+		if (this.lastContract != contractName)
 		{
-			this.lastContract = contract;
+			this.lastContract = contractName;
 			this.emitLoad(src_reg, contractName);
 			this.emitOpcode(this.Opcode_CTX());
 			this.appendByte(src_reg);
