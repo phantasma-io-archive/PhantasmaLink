@@ -450,19 +450,19 @@ class PhantasmaLink {
 			alert("script too big, sorry :(");
 			return; // TODO callback with error
 		}
-		
+
 		if (payload == null) {
 			payload = "";
 		}
-		else 
-		if (typeof payload === 'string') 
+		else
+		if (typeof payload === 'string')
 		{
-			// NOTE: here we convert a string into raw bytes 			
+			// NOTE: here we convert a string into raw bytes
 			let sb = new ScriptBuilder();
 			let bytes = sb.rawString(payload);
 			sb.appendBytes(bytes);
 			// then we convert the bytes into hex, because thats what PhantasmaLink protocol expects
-			payload = sb.endScript();			
+			payload = sb.endScript();
 		}
 		else {
 			alert("invalid payload, sorry :(");
@@ -473,7 +473,7 @@ class PhantasmaLink {
 		this.setLinkMsg('Relaying transaction to wallet...');
 
 		let that = this;
-		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script + '/' + payload+ '/', function(result){
+		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script + '/' + payload, function(result){
 				that.hideModal();
 				callback(result);
 			});
