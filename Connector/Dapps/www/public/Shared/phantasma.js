@@ -445,9 +445,27 @@ class PhantasmaLink {
 		return this.dapp;
 	}
 
-	sendTransaction(nexus, chain, script, callback) {
+	sendTransaction(nexus, chain, script, payload, callback) {
 		if (script.length >= 8192) {
 			alert("script too big, sorry :(");
+			return; // TODO callback with error
+		}
+		
+		if (payload == null) {
+			payload = "";
+		}
+		else 
+		if (typeof payload === 'string') 
+		{
+			// NOTE: here we convert a string into raw bytes 			
+			let sb = new ScriptBuilder();
+			let bytes = sb.rawString(payload);
+			sb.appendBytes(bytes);
+			// then we convert the bytes into hex, because thats what PhantasmaLink protocol expects
+			payload = sb.endScript();			
+		}
+		else {
+			alert("invalid payload, sorry :(");
 			return; // TODO callback with error
 		}
 
@@ -455,7 +473,7 @@ class PhantasmaLink {
 		this.setLinkMsg('Relaying transaction to wallet...');
 
 		let that = this;
-		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script, function(result){
+		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script + '/' + payload+ '/', function(result){
 				that.hideModal();
 				callback(result);
 			});
