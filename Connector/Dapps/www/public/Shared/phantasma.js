@@ -291,6 +291,7 @@ class ScriptBuilder {
 		if (this.lastMethod != method)
 		{
 			this.lastMethod = method;
+			this.lastContract = null;
 			this.emitLoad(temp_reg, method);
 		}
 
@@ -315,6 +316,7 @@ class ScriptBuilder {
 		if (this.lastContract != contractName)
 		{
 			this.lastContract = contractName;
+			this.lastMethod = null;
 			this.emitLoad(src_reg, contractName);
 			this.emitOpcode(this.Opcode_CTX());
 			this.appendByte(src_reg);
