@@ -464,7 +464,7 @@ class PhantasmaLink {
 			let bytes = sb.rawString(payload);
 			sb.appendBytes(bytes);
 			// then we convert the bytes into hex, because thats what PhantasmaLink protocol expects
-			payload = sb.endScript();
+			payload = sb.script;
 		}
 		else {
 			alert("invalid payload, sorry :(");
