@@ -55,10 +55,9 @@ namespace Phantasma.Dapps
             });
         }
 
-        protected override void SignTransaction(string nexus, string chain, byte[] script, int id, Action<Hash, string> callback)
+        protected override void SignTransaction(string nexus, string chain, byte[] script, byte[] payload, int id, Action<Hash, string> callback)
         {
             var expiration = (Timestamp)(DateTime.UtcNow + TimeSpan.FromMinutes(20));
-            var payload = System.Text.Encoding.ASCII.GetBytes("SampleConnector1.0"); 
             var tx = new Phantasma.Blockchain.Transaction(nexus, chain, script, expiration, payload);
             tx.Sign(this.keys);
 
