@@ -69,5 +69,10 @@ namespace Phantasma.Dapps
         {
             callback(true, null); // this accepts everything, in a real connect the user should be prompted!
         }
+
+        protected override void SignData(byte[] data, SignatureKind kind, int id, Action<string, string, string> callback)
+        {
+            callback(null, null, "not implemented on this connector yet");
+        }
     }
 }
