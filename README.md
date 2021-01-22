@@ -69,7 +69,7 @@ writeArchive | hash, blockIndex, rawbytes | /writeArchive/FFB9914E6749E7C4A7750F
 
 ## Javascript librariy
 
-If you are a web dapp developer, you will be able to connect your dapp to Phantasma by downloading the [Javascript](https://github.com/phantasma-io/PhantasmaLink/blob/master/Connector/Dapps/www/public/Shared/phantasma.js) library and integrating it with your code.
+If you are a web dapp developer, you will be able to connect your dapp to Phantasma by downloading the [Javascript](https://github.com/phantasma-io/PhantasmaLink/blob/master/Dapps/www/public/Shared/phantasma.js) library and integrating it with your code.<br>
 If you are creating a Unity or .NET based dapp, you will find a Phantasma Link library client [here](https://github.com/phantasma-io/PhantasmaSDK).
 
 ### Sample code
