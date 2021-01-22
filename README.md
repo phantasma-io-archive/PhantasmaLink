@@ -13,7 +13,6 @@
 
 ## Commits
 [![GitHub last commit](https://img.shields.io/github/last-commit/phantasma-io/PhantasmaLink.svg?style=flat)]()
-[![GitHub commit activity the past week, 4 weeks](https://img.shields.io/github/commit-activity/y/phantasma-io/PhantasmaLink.svg?style=flat)]()
 
 ## Social
 
