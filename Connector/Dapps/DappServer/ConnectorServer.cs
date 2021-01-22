@@ -73,6 +73,7 @@ namespace Phantasma.Dapps
 
             // either parse the settings from the program args or initialize them manually
             var settings = ServerSettings.Parse(args);
+            settings.Port = 4040;
 
             var server = new HTTPServer(settings, ConsoleLogger.Write);
 

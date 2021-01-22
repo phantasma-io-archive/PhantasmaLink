@@ -18,11 +18,6 @@ namespace Phantasma.SDK
 
 	internal static class PhantasmaAPIUtils
     {
-        internal static long GetInt64(this DataNode node, string name)
-        {
-            return node.GetLong(name);
-        }
-
         internal static bool GetBoolean(this DataNode node, string name)
         {
             return node.GetBool(name);
