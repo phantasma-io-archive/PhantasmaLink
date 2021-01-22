@@ -47,7 +47,7 @@ To learn more about Phantasma, please read the [White Paper](https://phantasma.i
 List of known wallets that support Phantasma Link protocol.
 
 Wallet 		| Status| Notes
-:---------------------- | :------------ | 
+:---------------------- | :------------ |  :------------ | 
 Sample Connector 		| Working, version 2 | Not a real wallet, it's a reference implementation
 [Poltergeist](https://github.com/phantasma-io/Poltergeist) 		| Working, version 2 support | Phantasma Link support in Windows/Mac/Linux versions only
 [Ecto](https://github.com/phantasma-io/Ecto/) 		| Working, version 1 support |  Browser-based
@@ -60,7 +60,7 @@ If you want to add support to Phantasma Link to your own wallet or other type of
 
 ### Methods
 Method 		| Arguments | Example | Notes
-:---------------------- | :------------ |  :------------ | 
+:---------------------- | :------------ |  :------------ |  :------------ | 
 authorize 		| dappName, version | /authorize/mydapp/2 | Will estabilish a connection between a dapp and a wallet
 getAccount 		| platform | /getAccount/phantasma | Will return various fields about the account available in the connected wallet. If multiple accounts are available, this will return the currently selected account.
 signData 		| data, signature, platform | /signData/FFAACCEA/Ed25519/phantasma | Will sign binary data with the private key of the current wallet.
