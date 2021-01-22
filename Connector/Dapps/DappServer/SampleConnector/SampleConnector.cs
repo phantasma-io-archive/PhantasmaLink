@@ -16,7 +16,10 @@ namespace Phantasma.Dapps
         protected override WalletStatus Status => WalletStatus.Ready;
         protected override PhantasmaKeys Keys => keys;
 
-        public SampleConnector(PhantasmaAPI api) : base("Sample Connector")
+        public override string Name => "Sample Connector";
+        public override string Nexus => "simnet";
+
+        public SampleConnector(PhantasmaAPI api) : base()
         {
             this.api = api;
             this.keys = PhantasmaKeys.FromWIF("L4cMNZPCQACkjVu74jfdstoeJQozg5QEveCUvvw4tAYGoyC5qjEU");
@@ -56,16 +59,16 @@ namespace Phantasma.Dapps
             });
         }
 
-        protected override void SignTransaction(string nexus, string chain, byte[] script, byte[] payload, int id, Action<Hash, string> callback)
+        protected override void SignTransaction(string chain, byte[] script, byte[] payload, int id, Action<Hash, string> callback)
         {
             var expiration = (Timestamp)(DateTime.UtcNow + TimeSpan.FromMinutes(20));
-            var tx = new Phantasma.Blockchain.Transaction(nexus, chain, script, expiration, payload);
+            var tx = new Phantasma.Blockchain.Transaction(this.Nexus, chain, script, expiration, payload);
             tx.Sign(this.keys);
 
             callback(tx.Hash, null);
         }
 
-        protected override void Authorize(string dapp, Action<bool, string> callback)
+        protected override void Authorize(string dapp, string token, Action<bool, string> callback)
         {
             callback(true, null); // this accepts everything, in a real connect the user should be prompted!
         }
@@ -73,6 +76,11 @@ namespace Phantasma.Dapps
         protected override void SignData(byte[] data, SignatureKind kind, int id, Action<string, string, string> callback)
         {
             callback(null, null, "not implemented on this connector yet");
+        }
+
+        protected override void WriteArchive(Hash hash, int blockIndex, byte[] data, Action<bool, string> callback)
+        {
+            callback(false, "not implemented on this connector yet");
         }
     }
 }
