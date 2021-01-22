@@ -1,5 +1,4 @@
-(function($){$.fn.fakeLoader=function(options){var bindLoader=$(this).data("fakeLoader:initial");if(bindLoader){bindLoader.settings=$.extend(bindLoader.settings,options);return}$(this).data("fakeLoader:initial",this);var settings=$.extend({timeToHide:1200,pos:"fixed",top:"0px",left:"0px",width:"100%",height:"100%",zIndex:"999",bgColor:"#2ecc71",spinner:"spinner7",imagePath:"",blockMode:false,release:false},options);this.settings=settings;var spinner01='<div class="fl spinner1"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>';var spinner02='<div class="fl spinner2"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div>';var spinner03='<div class="fl spinner3"><div class="dot1"></div><div class="dot2"></div></div>';var spinner04='<div class="fl spinner4"></div>';var spinner05='<div class="fl spinner5"><div class="cube1"></div><div class="cube2"></div></div>';var spinner06='<div class="fl spinner6"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>';var spinner07='<div class="fl spinner7"><div class="circ1"></div><div class="circ2"></div><div class="circ3"></div><div class="circ4"></div></div>';var el=$(this);var initStyles={position:settings.pos,width:settings.width,height:settings.height,top:settings.top,left:settings.left};el.css(initStyles);el.each(function(){var a=settings.spinner;switch(a){case"spinner1":el.html(spinner01);break;case"spinner2":el.html(spinner02);break;case"spinner3":el.html(spinner03);break;case"spinner4":el.html(spinner04);break;case"spinner5":el.html(spinner05);break;case"spinner6":el.html(spinner06);break;case"spinner7":el.html(spinner07);break;default:el.html(spinner01)}if(settings.imagePath!=""){el.html('<div class="fl"><div id="phantasma_link_msg" class="text-center" style="color:gray">Initializing...</div><br><img src="'+settings.imagePath+'"></div>')}centerLoader()});if(settings.blockMode==false){setTimeout(function(){$(el).fadeOut()},settings.timeToHide)}else{setInterval(function(){if(settings.release==true){$(el).fadeOut()}},settings.timeToHide)}return this.css({backgroundColor:settings.bgColor,zIndex:settings.zIndex})};function centerLoader(){var winW=$(window).width();var winH=$(window).height();var spinnerW=$(".fl").outerWidth();var spinnerH=$(".fl").outerHeight();$(".fl").css({position:"absolute",left:winW/2-spinnerW/2,top:winH/2-spinnerH/2})}$(window).on("load",function(){centerLoader();$(window).resize(function(){centerLoader()})})})(jQuery);
-
+(function($){$.fn.fakeLoader=function(options){var bindLoader=$(this).data("fakeLoader:initial");if(bindLoader){bindLoader.settings=$.extend(bindLoader.settings,options);return}$(this).data("fakeLoader:initial",this);var settings=$.extend({timeToHide:1200,pos:"fixed",top:"0px",left:"0px",width:"100%",height:"100%",zIndex:"999",bgColor:"#2ecc71",spinner:"spinner7",imagePath:"",blockMode:false,release:false},options);this.settings=settings;var spinner01='<div class="fl spinner1"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>';var spinner02='<div class="fl spinner2"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div>';var spinner03='<div class="fl spinner3"><div class="dot1"></div><div class="dot2"></div></div>';var spinner04='<div class="fl spinner4"></div>';var spinner05='<div class="fl spinner5"><div class="cube1"></div><div class="cube2"></div></div>';var spinner06='<div class="fl spinner6"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>';var spinner07='<div class="fl spinner7"><div class="circ1"></div><div class="circ2"></div><div class="circ3"></div><div class="circ4"></div></div>';var el=$(this);var initStyles={position:settings.pos,width:settings.width,height:settings.height,top:settings.top,left:settings.left};el.css(initStyles);el.each(function(){var a=settings.spinner;switch(a){case"spinner1":el.html(spinner01);break;case"spinner2":el.html(spinner02);break;case"spinner3":el.html(spinner03);break;case"spinner4":el.html(spinner04);break;case"spinner5":el.html(spinner05);break;case"spinner6":el.html(spinner06);break;case"spinner7":el.html(spinner07);break;default:el.html(spinner01)}if(settings.imagePath!=""){el.html('<div class="fl"><div id="phantasma_link_msg" class="text-center" style="color:gray">Initializing...</div><br><img src="'+settings.imagePath+'"></div>')}centerLoader()});if(settings.blockMode==false){setTimeout(function(){$(el).fadeOut()},settings.timeToHide)}else{setInterval(function(){if(settings.release==true){$(el).fadeOut()}},settings.timeToHide)}return this.css({backgroundColor:settings.bgColor,zIndex:settings.zIndex})};function centerLoader(){var winW=$(window).width();var winH=$(window).height();var spinnerW=$(".fl").outerWidth();var spinnerH=$(".fl").outerHeight();$(".fl").css({position:"absolute",left:"50%",top:"50%", width:"256px", height:"256px", margin:"-128px 0px 0px -128px"})}$(window).on("load",function(){centerLoader();$(window).resize(function(){centerLoader()})})})(jQuery);
 
 String.prototype.trunc = String.prototype.trunc ||
       function(n){
@@ -10,19 +9,20 @@ var phantasmaLogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAA
 
 var phantasmaInsertHTML =  `
 <div id="fakeLoader"></div>
-<div id="phantasmaError" class="modal fade" role="dialog">
+<div id="phantasmaError" class="modal fade" role="dialog" style="color:black">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title" style="text-align:left">Phantasma Link Error</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Phantasma Link Error</h4>
       </div>
       <div class="modal-body">
         <p>We were unable to connect to a Phantasma wallet. If you have a compatible wallet installed, make sure it is open in the background.</p>
-		<p>Otherwise, please install one of the following:
+		<p>Otherwise, please install one of the following wallets:
 		<ul>
 		<li><a href="https://github.com/Relfos/Poltergeist/releases">Poltergeist</a></li>
-		<li><a href="https://github.com/merl111/PhantomWallet/releases">Phantom</a></li>
+		<li><a href="https://chrome.google.com/webstore/detail/ecto-wallet/bgjogpoidejdemgoochpnkmdjpocgkha">Ecto</a></li>
+		<!--<li><a href="https://github.com/merl111/PhantomWallet/releases">Phantom</a></li>-->
 		</ul></p>
 		<p>Once installed, open it then press the Retry button.</p>
       </div>
@@ -363,15 +363,15 @@ class PhantasmaLink {
 		};
 	}
 
-	login(callback) {
+	login(callback, version = 2, platform = 'phantasma', providerHint = '') {
 		this.onLogin = callback;
-		this.createSocket();
+		this.createSocket(version, platform, providerHint);
 	}
 
-	createSocket() {
+	createSocket(version, platform, providerHint) {
 		let path = "ws://"+ this.host +"/phantasma";
 		this.setLinkMsg('Phantasma Link connecting: ' + path);
-		this.socket = new WebSocket(path);
+		this.socket =  window.PhantasmaLinkSocket && providerHint=='ecto' ? new PhantasmaLinkSocket(): new WebSocket(path);
 		this.requestCallback = null;
 		this.token = null;
 		this.account = null;
@@ -384,13 +384,13 @@ class PhantasmaLink {
 		var that = this;
 		this.socket.onopen = function(e) {
 			that.setLinkMsg('Connection established, authorizing...');
-			that.sendLinkRequest('authorize/' + that.dapp, function(result){
+			that.sendLinkRequest('authorize/' + that.dapp + '/'+ version, function(result){
 
 				if (result.success) {
 					that.token = result.token;
 					that.wallet = result.wallet;
 					that.setLinkMsg('Authorized, obtaining account info...');
-					that.sendLinkRequest('getAccount', function(result){
+					that.sendLinkRequest('getAccount/' + platform, function(result){
 						if (result.success) {
 								that.account = result;
 								that.setLinkMsg('Ready, opening dapp...');
