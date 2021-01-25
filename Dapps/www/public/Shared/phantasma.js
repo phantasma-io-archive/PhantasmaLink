@@ -297,6 +297,20 @@ class ScriptBuilder {
 
 		return temp_reg;
 	}
+	
+	allowGas(from_addr, dapp_addr, gasPrice = 100000, gasLimit = 9999) {
+		
+		if (!dapp_addr) {
+			dapp_addr = this.nullAddress();
+		}
+		
+		//gasPrice = Math.floor(gasPrice * Math.pow(10, 10));		
+		return this.callContract("gas", "AllowGas", [from_addr, dapp_addr, gasPrice, gasLimit]);
+	}
+
+	spendGas(from_addr) {	
+		return this.callContract("gas", "SpendGas", [from_addr]);
+	}
 
 	callInterop(method, args) {
 		let temp_reg = this.emitMethod(method, args);
@@ -365,49 +379,76 @@ class PhantasmaLink {
 
 	login(callback, version = 2, platform = 'phantasma', providerHint = '') {
 		this.onLogin = callback;
-		this.createSocket(version, platform, providerHint);
+		this.version = version;
+		this.platform = platform;
+		this.token = null;
+		this.createSocket(providerHint, false);
+	}
+	
+	resume(token, wallet, nexus, version, platform, callback, providerHint = '') {
+		this.token = token;
+		this.wallet = wallet;
+		this.nexus = nexus;
+		this.version = version;
+		this.platform = platform;
+		this.onLogin = callback;
+		this.createSocket(providerHint, true);
 	}
 
-	createSocket(version, platform, providerHint) {
+	fetchAccount(){
+		var that = this;
+		this.sendLinkRequest('getAccount/' + this.platform, function(result){
+			if (result.success) {
+					that.account = result;
+					that.setLinkMsg('Ready, opening dapp...');
+					that.hideModal();
+			}
+			else {							
+				that.setLinkMsg('Could not obtain account info...<br>Make sure you have an account currently open in '+ that.wallet);
+			}
+
+			that.onLogin(result.success);
+		});
+	}		
+
+	createSocket(providerHint, isResume) {
 		let path = "ws://"+ this.host +"/phantasma";
 		this.setLinkMsg('Phantasma Link connecting: ' + path);
 		this.socket =  window.PhantasmaLinkSocket && providerHint=='ecto' ? new PhantasmaLinkSocket(): new WebSocket(path);
 		this.requestCallback = null;
-		this.token = null;
 		this.account = null;
 
 		this.requestID = 0;
+		
 		this.showModal();
-
-		$('#account_connection').html('Unconnected');
+		//$('#account_connection').html('Unconnected');
 
 		var that = this;
 		this.socket.onopen = function(e) {
 			that.setLinkMsg('Connection established, authorizing...');
-			that.sendLinkRequest('authorize/' + that.dapp + '/'+ version, function(result){
+			
+			if (isResume) {
+				that.setLinkMsg('Resuming connection...');
+				that.fetchAccount();
+			}
+			else {
+				
+			that.sendLinkRequest('authorize/' + that.dapp + '/'+ that.version, function(result){
 
 				if (result.success) {
 					that.token = result.token;
 					that.wallet = result.wallet;
+					that.nexus = result.nexus;
 					that.setLinkMsg('Authorized, obtaining account info...');
-					that.sendLinkRequest('getAccount/' + platform, function(result){
-						if (result.success) {
-								that.account = result;
-								that.setLinkMsg('Ready, opening dapp...');
-								that.hideModal();
-						}
-						else {
-							that.setLinkMsg('Could not obtain account info...<br>Make sure you have an account currently open in '+that.wallet);
-						}
-
-						that.onLogin(result.success);
-					});
+					that.fetchAccount();
 				}
 				else {
 					that.setLinkMsg('Authorization failed...');
 					that.onLogin(false);
 				}
 			});
+				
+			}			
 		};
 
 		this.socket.onmessage = function(event) {
@@ -447,7 +488,12 @@ class PhantasmaLink {
 		return this.dapp;
 	}
 
-	sendTransaction(nexus, chain, script, payload, callback) {
+	sendTransaction(chain, script, payload, callback, platform = 'phantasma', signature = 'Ed25519') {
+		if (!this.socket) {
+			callback('not logged in');
+			return;
+		}
+		
 		if (script.length >= 8192) {
 			alert("script too big, sorry :(");
 			return; // TODO callback with error
@@ -475,7 +521,16 @@ class PhantasmaLink {
 		this.setLinkMsg('Relaying transaction to wallet...');
 
 		let that = this;
-		this.sendLinkRequest('signTx/' + nexus + '/'+ chain + '/' + script + '/' + payload, function(result){
+		let requestStr = chain + '/' + script + '/' + payload;
+				
+		if (this.version >= 2) {
+			requestStr = requestStr + '/' + signature + '/' + platform;
+		}
+		else {
+			requestStr = this.nexus + '/'+ requestStr;
+		}
+		
+		this.sendLinkRequest('signTx/' +requestStr, function(result){
 				that.hideModal();
 				callback(result);
 			});
@@ -500,6 +555,11 @@ class PhantasmaLink {
 	}
 
 	showModal() {
+		if (this.hasModal) {
+			return;
+		}
+		
+		this.hasModal = true;
 		$("#fakeLoader").fakeLoader({
 				blockMode:true, //set fakeLoader use blockMode
 				timeToHide:1200, //Time in milliseconds for fakeLoader check release status
@@ -512,6 +572,7 @@ class PhantasmaLink {
 	}
 
 	hideModal() {
+		this.hasModal = false;
 		setTimeout(function () {
 			$("#fakeLoader").fakeLoader({
 					release:true
