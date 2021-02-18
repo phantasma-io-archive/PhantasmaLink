@@ -20,9 +20,9 @@ var phantasmaInsertHTML =  `
         <p>We were unable to connect to a Phantasma wallet. If you have a compatible wallet installed, make sure it is open in the background.</p>
 		<p>Otherwise, please install one of the following wallets:
 		<ul>
-		<li><a href="https://github.com/Relfos/Poltergeist/releases">Poltergeist</a></li>
-		<li><a href="https://chrome.google.com/webstore/detail/ecto-wallet/bgjogpoidejdemgoochpnkmdjpocgkha">Ecto</a></li>
-		<!--<li><a href="https://github.com/merl111/PhantomWallet/releases">Phantom</a></li>-->
+		<li><a class="phantasma-wallet-link" href="https://github.com/Relfos/Poltergeist/releases">Poltergeist</a></li>
+		<li><a class="phantasma-wallet-link" href="https://chrome.google.com/webstore/detail/ecto-wallet/bgjogpoidejdemgoochpnkmdjpocgkha">Ecto</a></li>
+		<!--<li><a class="phantasma-wallet-link" href="https://github.com/merl111/PhantomWallet/releases">Phantom</a></li>-->
 		</ul></p>
 		<p>Once installed, open it then press the Retry button.</p>
       </div>
@@ -120,7 +120,7 @@ class ScriptBuilder {
 	}
 
 	rawString(value) {
-		var data = [];
+		let data = [];
 		for (var i = 0; i < value.length; i++){
 			data.push(value.charCodeAt(i));
 		}
@@ -396,8 +396,14 @@ class PhantasmaLink {
 	}
 
 	fetchAccount(){
-		var that = this;
-		this.sendLinkRequest('getAccount/' + this.platform, function(result){
+		let that = this;
+		let requestStr = 'getAccount';
+		
+		if (this.version > 1) {
+			requestStr = requestStr + '/' + this.platform;
+		}
+		
+		this.sendLinkRequest(requestStr, function(result){
 			if (result.success) {
 					that.account = result;
 					that.setLinkMsg('Ready, opening dapp...');
@@ -407,14 +413,50 @@ class PhantasmaLink {
 				that.setLinkMsg('Could not obtain account info...<br>Make sure you have an account currently open in '+ that.wallet);
 			}
 
-			that.onLogin(result.success);
+			that.onLogin(result.success, '');
 		});
 	}		
 
 	createSocket(providerHint, isResume) {
+		console.log('Initialing socket for Phantasma link version '+ this.version);
+			
 		let path = "ws://"+ this.host +"/phantasma";
 		this.setLinkMsg('Phantasma Link connecting: ' + path);
-		this.socket =  window.PhantasmaLinkSocket && providerHint=='ecto' ? new PhantasmaLinkSocket(): new WebSocket(path);
+		
+		if (providerHint=='ecto') {
+			
+			if (window.PhantasmaLinkSocket) {
+				this.setLinkMsg('Using custom Ecto socket...');
+				this.socket =  new PhantasmaLinkSocket();
+			}
+			else {
+				
+				if (this.ectoDelay >= 3 ) {
+					this.setLinkMsg('Could not find Ecto socket...');
+					this.onLogin(false);
+				}
+				else {
+					if (this.ectoDelay) {
+						this.ectoDelay++;
+					}
+					else {						
+						this.ectoDelay = 1;
+					}
+					
+					this.showModal();
+					this.setLinkMsg('Waiting for Ecto connection...');
+										
+					let that = this;
+					setTimeout(function(){ that.createSocket(providerHint, isResume); }, 500);	
+				}
+				
+				return;
+			}
+		}
+		else {
+			this.socket =  new WebSocket(path);
+		}		
+		
 		this.requestCallback = null;
 		this.account = null;
 
@@ -423,7 +465,7 @@ class PhantasmaLink {
 		this.showModal();
 		//$('#account_connection').html('Unconnected');
 
-		var that = this;
+		let that = this;
 		this.socket.onopen = function(e) {
 			that.setLinkMsg('Connection established, authorizing...');
 			
@@ -433,7 +475,12 @@ class PhantasmaLink {
 			}
 			else {
 				
-			that.sendLinkRequest('authorize/' + that.dapp + '/'+ that.version, function(result){
+				let requestStr = 'authorize/' + that.dapp;
+				if (that.version > 1) {
+					requestStr = requestStr + '/'+ that.version;
+				}
+				
+				that.sendLinkRequest(requestStr, function(result){
 
 				if (result.success) {
 					that.token = result.token;
@@ -445,6 +492,7 @@ class PhantasmaLink {
 				else {
 					that.setLinkMsg('Authorization failed...');
 					that.onLogin(false);
+					return;
 				}
 			});
 				
@@ -455,9 +503,9 @@ class PhantasmaLink {
 
 			console.log("Got Phantasma Link answer: " + event.data);
 
-			var obj = JSON.parse(event.data);
+			let obj = JSON.parse(event.data);
 
-			var temp = that.requestCallback;
+			let temp = that.requestCallback;
 			if (temp == null) {
 				that.setLinkMsg('Something bad happened...');
 				return;
@@ -469,8 +517,17 @@ class PhantasmaLink {
 
 		this.socket.onclose = function(event) {
 		  if (!event.wasClean) {
-			$('#phantasmaError').modal('show');
-			that.setLinkMsg('Connection died...');
+			
+				that.setLinkMsg('Connection died...');			
+				
+				if (isResume) {
+					that.onLogin(false);
+					return;
+				}
+				else {
+					$('#phantasmaError').modal('show');
+				}
+			
 		  }
 		};
 
@@ -551,6 +608,7 @@ class PhantasmaLink {
 	}
 
 	setLinkMsg(msg) {
+		console.log(msg);
 		$('#phantasma_link_msg').html(msg);
 	}
 
