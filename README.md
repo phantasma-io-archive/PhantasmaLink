@@ -60,14 +60,14 @@ If you want to add support to Phantasma Link to your own wallet or other type of
 ### Methods
 Method 		| Arguments | Example | Notes
 :---------------------- | :------------ |  :------------ |  :------------ | 
-authorize 		| dappName, version | /authorize/mydapp/2 | Will estabilish a connection between a dapp and a wallet
+authorize 		| dappName, version | /authorize/mydapp/2 | Will establish a connection between a dapp and a wallet
 getAccount 		| platform | /getAccount/phantasma | Will return various fields about the account available in the connected wallet. If multiple accounts are available, this will return the currently selected account.
 signData 		| data, signature, platform | /signData/FFAACCEA/Ed25519/phantasma | Will sign binary data with the private key of the current wallet.
 signTx 		| chain, script, payload, signature, platform | /signTx/main/RAWSCRIPTHERE/Ed25519/phantasma | Will sign with the private key of the current wallet, and relay it to a node
 invokeScript | chain, script | /invokeScript/main/RAWSCRIPTHERE | Will execute a read-only script using onchain data
 writeArchive | hash, blockIndex, rawbytes | /writeArchive/FFB9914E6749E7C4A7750FDD2F30890ECDD63021FA661BD85BE3DD108E0EB372/RAWBYTESHERE | Will write an archive chunk to the Phantasma storage
 
-## Javascript librariy
+## Javascript library
 
 If you are a web dapp developer, you will be able to connect your dapp to Phantasma by downloading the [Javascript](https://github.com/phantasma-io/PhantasmaLink/blob/master/Dapps/www/public/Shared/phantasma.js) library and integrating it with your code.<br>
 If you are creating a Unity or .NET based dapp, you will find a Phantasma Link library client [here](https://github.com/phantasma-io/PhantasmaSDK).
@@ -120,4 +120,3 @@ You can contribute to Phantasma with [issues](https://github.com/Phantasma-io/Ph
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
 The Phantasma project is released under the MIT license, see `LICENSE.md` for more details.
-
